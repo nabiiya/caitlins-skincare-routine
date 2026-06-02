@@ -1,0 +1,353 @@
+/* --- 1. Whole page basics --- */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+/* Smooth scroll: clicking the links glides instead of jumping */
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  font-family: "Quicksand", Arial, sans-serif; /* soft, rounded font */
+  color: #6f4e37; /* warm coffee brown instead of harsh black */
+  line-height: 1.7;
+}
+
+/* --- 2. Reusable text styles --- */
+.eyebrow {
+  font-family: "Caveat", cursive; /* the handwriting font */
+  font-size: 26px;
+  color: #e8758a;
+  margin-bottom: 6px;
+}
+
+.heading {
+  font-family: "Fuzzy Bubbles", cursive; /* the cute bubbly font */
+  font-size: 38px;
+  margin-bottom: 30px;
+}
+
+.pink {
+  color: #e8758a;
+}
+.white {
+  color: white;
+}
+
+/* --- 3. SECTION 1: Title screen --- */
+.title-section {
+  min-height: 100vh;
+  background-color: #fce8ef;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+}
+
+.badge {
+  font-family: "Caveat", cursive;
+  font-size: 22px;
+  background-color: white;
+  color: #e8758a;
+  padding: 6px 18px;
+  border-radius: 50px;
+  margin-bottom: 20px;
+}
+
+.title {
+  font-family: "Fuzzy Bubbles", cursive; /* cute bubbly headline */
+  font-size: 64px;
+  line-height: 1.2;
+}
+
+.credit {
+  color: #888;
+  margin: 20px 0;
+}
+
+/* The big photo on the title screen */
+.hero-photo {
+  width: 480px;
+  max-width: 90%; /* shrinks on small screens so it never overflows */
+  margin-top: 30px;
+  border-radius: 20px; /* rounded corners */
+  box-shadow: 0 12px 30px rgba(111, 78, 55, 0.25); /* soft brown shadow */
+}
+
+/* --- 4. The link buttons --- */
+.scroll-link {
+  color: #e8758a;
+  text-decoration: none;
+  font-weight: bold;
+  /* transition makes hover changes fade smoothly instead of snapping */
+  transition:
+    color 0.2s,
+    transform 0.2s;
+}
+
+.scroll-link:hover {
+  color: #c14b62;
+  transform: translateY(-2px);
+}
+
+.scroll-link.solid {
+  background-color: #e8758a;
+  color: white;
+  padding: 12px 24px;
+  border-radius: 50px;
+  transition:
+    background-color 0.2s,
+    transform 0.2s;
+}
+
+.scroll-link.solid:hover {
+  background-color: #c14b62;
+  transform: translateY(-3px);
+}
+
+/* --- 5. SECTION 2: Introduction --- */
+.intro-section {
+  padding: 110px 20px;
+  max-width: 700px;
+  margin: 0 auto;
+  text-align: center;
+}
+
+.intro-text {
+  font-size: 21px;
+  margin-top: 16px;
+}
+
+/* --- 6. SECTION 3: The two routines side by side --- */
+.routines-section {
+  display: flex; /* puts the two routines next to each other */
+  justify-content: center;
+  gap: 40px;
+  flex-wrap: wrap; /* they stack on small screens */
+  padding: 40px 20px 20px;
+  background-color: #fdf8f5; /* cream */
+}
+
+/* One routine column (morning OR night) */
+.routine {
+  background-color: #fce8ef; /* soft pink for the morning side */
+  width: 320px;
+  padding: 30px;
+  border-radius: 24px;
+  position: relative; /* needed so z-index works on this column */
+}
+
+/* When you hover a column, lift it ABOVE the other one so the
+   popover never slides behind the neighbouring box */
+.routine:hover {
+  z-index: 10;
+}
+
+/* The night column gets a cozy brown look so the two feel different */
+.routine-night {
+  background-color: #6f4e37; /* coffee brown */
+}
+.routine-night .routine-title,
+.routine-night .step-name {
+  color: #fdf3ec; /* warm cream text */
+}
+.routine-night .step {
+  background-color: #855e44; /* lighter brown for each step */
+}
+
+.routine-title {
+  font-family: "Fuzzy Bubbles", cursive; /* cute bubbly font */
+  text-align: center;
+  font-size: 30px;
+  margin-bottom: 20px;
+}
+
+/* One step inside a routine */
+.step {
+  background-color: white;
+  border-radius: 14px;
+  padding: 16px 18px;
+  margin-bottom: 12px;
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  /* position: relative lets the popover sit next to THIS step */
+  position: relative;
+  cursor: pointer;
+  transition:
+    transform 0.2s,
+    box-shadow 0.2s;
+}
+
+/* HOVER: the step slides over a little and gets a shadow */
+.step:hover {
+  transform: translateX(6px);
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+}
+
+/* The little pink numbered circle */
+.step-num {
+  background-color: #e8758a;
+  color: white;
+  font-weight: bold;
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.step-name {
+  font-weight: bold;
+  font-size: 18px;
+}
+
+/* --- 7. The hover popover --- */
+/* Starts hidden, appears to the side when you hover the step */
+.popover {
+  position: absolute;
+  left: 100%; /* sit right against the step (no gap) */
+  top: 0;
+  width: 230px;
+  background-color: white;
+  color: #2c2c2c;
+  border-radius: 14px;
+  padding: 16px;
+  text-align: left;
+  font-size: 14px;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.18);
+  z-index: 5;
+
+  opacity: 0; /* invisible by default */
+  transform: translateX(-8px); /* nudged left */
+  transition:
+    opacity 0.25s,
+    transform 0.25s;
+  pointer-events: none; /* ignore mouse while hidden */
+}
+
+/* Reveal the popover when its step is hovered */
+.step:hover .popover {
+  opacity: 1;
+  transform: translateX(0);
+  pointer-events: auto; /* let the mouse click the link again */
+}
+
+/* Night column is on the right, so show its popover on the LEFT side
+   instead, so it doesn't run off the edge of the screen */
+.routine-night .popover {
+  left: auto; /* turn off the left positioning */
+  right: 100%; /* sit right against the LEFT of the step */
+  transform: translateX(8px);
+}
+.routine-night .step:hover .popover {
+  transform: translateX(0);
+}
+
+/* The product photo at the top of each popover */
+.popover-img {
+  width: 100%; /* fill the popover width */
+  height: 120px;
+  object-fit: contain; /* show the whole bottle without squishing it */
+  background-color: #fdf3ec; /* soft cream behind the photo */
+  border-radius: 10px;
+  margin-bottom: 10px;
+}
+
+.popover-title {
+  display: block; /* makes the link sit on its own line */
+  font-weight: bold;
+  margin-bottom: 10px;
+  color: #e8758a;
+  text-decoration: none; /* removes the default underline */
+  transition: color 0.2s;
+}
+
+/* darken the product link a little when hovered */
+.popover-title:hover {
+  color: #c14b62;
+  text-decoration: underline;
+}
+
+.popover-row {
+  display: flex;
+  justify-content: space-between; /* label left, value right */
+  padding: 4px 0;
+  border-bottom: 1px solid #f0f0f0;
+  color: #666;
+}
+
+.popover-row:last-child {
+  border-bottom: none;
+}
+
+/* My personal handwritten note at the bottom of a popover */
+.popover-note {
+  font-family: "Caveat", cursive;
+  font-size: 17px;
+  color: #e8758a;
+  text-align: center;
+  margin-top: 10px;
+}
+
+.popover-row span:last-child {
+  font-weight: bold;
+  color: #6f4e37; /* coffee brown to match the theme */
+}
+
+/* The little handwritten hint under the routines */
+.hint {
+  text-align: center;
+  font-family: "Caveat", cursive;
+  font-size: 24px;
+  color: #b9879a;
+  background-color: #fdf8f5;
+  padding-bottom: 40px;
+  margin: 0;
+}
+
+/* --- 8. SECTION 4: Fact box --- */
+.fact-section {
+  padding: 70px 20px;
+  display: flex;
+  justify-content: center;
+}
+
+.fact-box {
+  background-color: #fce8ef;
+  border-left: 5px solid #e8758a;
+  padding: 32px;
+  max-width: 520px;
+  border-radius: 12px;
+  transition:
+    transform 0.25s,
+    box-shadow 0.25s;
+}
+
+.fact-box:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 12px 26px rgba(232, 117, 138, 0.2);
+}
+
+/* --- 9. SECTION 5: Ending --- */
+.end-section {
+  min-height: 70vh;
+  background-color: #6f4e37; /* cozy coffee brown */
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  padding: 40px 20px;
+  gap: 30px;
+}
+
+.end-section .heading {
+  max-width: 620px;
+}
