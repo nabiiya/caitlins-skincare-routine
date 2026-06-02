@@ -8,10 +8,7 @@ finally found products that work for me. This page shares that routine in a
 fun, interactive way.
 
 ## Live demo
-
-<!-- After you turn on GitHub Pages, paste your link here, for example: -->
-<!-- https://yourusername.github.io/caitlins-skincare-routine/ -->
-(coming soon)
+https://nabiiya.github.io/caitlins-skincare-routine/
 
 ## Features
 
@@ -39,11 +36,3 @@ fun, interactive way.
   (fixed with `z-index`) and links that weren't clickable (fixed with
   `pointer-events`)
 - Working with image files, file paths, and accessible `alt` text
-
-## How to run it
-
-Download the files and open `index.html` in any web browser.
-
-## Next steps
-
-- Add JavaScript for a day/night toggle and tap-friendly tooltips for mobile
